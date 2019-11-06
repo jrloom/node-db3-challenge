@@ -12,14 +12,14 @@ function findById(id) {
 
 function findSteps(id) {
   return db("schemes")
-    .where({ id })
+    .join("steps", "schemes.id", "steps.scheme_id")
     .select(
-      "schemes.id",
+      "steps.id",
       "schemes.scheme_name",
       "steps.step_number",
       "steps.instructions"
     )
-    .join("steps", "schemes.id", "=", "steps.schemes.id");
+    .where("steps.scheme_id", id);
 }
 
 function add(scheme) {
